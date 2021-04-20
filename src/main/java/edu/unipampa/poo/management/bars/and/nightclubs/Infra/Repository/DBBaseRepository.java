@@ -1,4 +1,4 @@
-package edu.unipampa.poo.management.bars.and.nighclubs.Infra.Repository;
+package edu.unipampa.poo.management.bars.and.nightclubs.Infra.Repository;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,9 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.nio.file.*;
 
 @SuppressWarnings("unchecked")
@@ -23,7 +20,7 @@ public abstract class DBBaseRepository<T> {
     protected List<T> _cache;
     protected boolean _updateCache = true;
 
-    public DBBaseRepository(String pathBD) {
+    public DBBaseRepository(Path pathBD) {
         _pathDB = pathBD;
     }
 
@@ -40,7 +37,7 @@ public abstract class DBBaseRepository<T> {
 
         openFileWrite(_pathDB.toString());
 
-        int lastId = listEntity.size() == 0
+        int lastId = listEntity.isEmpty()
             ? listEntity.size() 
             : listEntity.get(listEntity.size() - INDEX_DIFF).getId();
 
