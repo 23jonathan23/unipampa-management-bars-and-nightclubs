@@ -1,6 +1,8 @@
 package edu.unipampa.poo.management.bars.and.nightclubs.Domain;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable {
     private final int MINIMUM_CREDIT = 0;
     protected double _ticket = 100.00;
     protected String _rg;
@@ -34,5 +36,11 @@ public class Client {
             throw new IllegalArgumentException("Valor informado é inválido, o valor informado deve ser maior que 0");
         }
         _credit = credit;
+    }
+    
+    @Override
+    public boolean equals(Object client) {
+        var clientCast = (Client) client;
+        return this._rg.equals(clientCast._rg);
     }
 }

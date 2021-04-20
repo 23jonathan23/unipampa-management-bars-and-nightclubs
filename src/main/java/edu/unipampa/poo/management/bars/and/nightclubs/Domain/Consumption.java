@@ -1,6 +1,8 @@
 package edu.unipampa.poo.management.bars.and.nightclubs.Domain;
 
-public class Consumption {
+import java.io.Serializable;
+
+public class Consumption implements Serializable {
     private final int MINIMUM_QUANTITY = 0;
 	private int _code;
     private String _rgClient;
@@ -35,5 +37,11 @@ public class Consumption {
 			throw new IllegalArgumentException("Valor informado é inválido, o valor informado deve ser maior que 0");
 		}
         _quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object consumption) {
+        var consumptionCast = (Consumption) consumption;
+        return this._code == consumptionCast._code;
     }
 }

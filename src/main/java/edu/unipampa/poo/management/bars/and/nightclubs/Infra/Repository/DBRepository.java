@@ -10,8 +10,7 @@ import java.util.List;
 import java.nio.file.*;
 
 @SuppressWarnings("unchecked")
-public abstract class DBBaseRepository<T> {
-    protected final int INDEX_DIFF = 1;
+public class DBRepository<T> {
     protected Path _pathDB;
     protected FileOutputStream _fileOutStream;
     protected ObjectOutputStream _objectOutStream;
@@ -20,11 +19,11 @@ public abstract class DBBaseRepository<T> {
     protected List<T> _cache;
     protected boolean _updateCache = true;
 
-    public DBBaseRepository(Path pathBD) {
+    public DBRepository(Path pathBD) {
         _pathDB = pathBD;
     }
 
-    public void insert(T entity) throws IOException, ClassNotFoundException {
+    public void insert(T entity) throws IOException, ClassNotFoundException, IllegalArgumentException {
         List<T> listEntity = new ArrayList<>();
 
         if (Files.exists(_pathDB)) {
@@ -33,15 +32,15 @@ public abstract class DBBaseRepository<T> {
             listEntity = (List<T>) _objectInputStream.readObject();
 
             disposeFileRead();
+
+            for (var entityOld : listEntity) {
+                if (entityOld.equals(entity)) {
+                    throw new IllegalArgumentException("O registro informado já existe");
+                }
+            }
         }
 
         openFileWrite(_pathDB.toString());
-
-        int lastId = listEntity.isEmpty()
-            ? listEntity.size() 
-            : listEntity.get(listEntity.size() - INDEX_DIFF).getId();
-
-        entity.setId(lastId + INDEX_DIFF);
 
         listEntity.add(entity);
 
@@ -56,7 +55,7 @@ public abstract class DBBaseRepository<T> {
         var listEntity = queryAll();
 
         for (var entityOld : listEntity) {
-            if (entityOld.getId() == entity.getId()) {
+            if (entityOld.equals(entity)) {
                 listEntity.set(listEntity.indexOf(entityOld), entity);
                 break;
             }
@@ -69,11 +68,11 @@ public abstract class DBBaseRepository<T> {
         disposeFileWrite();
     }
 
-    public void delete(int id) throws IOException, ClassNotFoundException {
+    public void delete(T entity) throws IOException, ClassNotFoundException {
         var listEntity = queryAll();
 
-        for (var entity : listEntity) {
-            if (entity.getId() == id) {
+        for (var entityOld : listEntity) {
+            if (entityOld.equals(entity)) {
                 listEntity.remove(listEntity.indexOf(entity));
                 break;
             }
@@ -102,22 +101,22 @@ public abstract class DBBaseRepository<T> {
         return _cache;
     }
 
-    private void openFileWrite(String file) throws IOException {
+    protected void openFileWrite(String file) throws IOException {
         _fileOutStream = new FileOutputStream(file);
         _objectOutStream = new ObjectOutputStream(_fileOutStream);
     }
 
-    private void disposeFileWrite() throws IOException {
+    protected void disposeFileWrite() throws IOException {
         _fileOutStream.close();
         _objectOutStream.close();
     }
 
-    private void openFileRead(String file) throws IOException {
+    protected void openFileRead(String file) throws IOException {
         _fileInputStream = new FileInputStream(file);
         _objectInputStream = new ObjectInputStream(_fileInputStream);
     }
 
-    private void disposeFileRead() throws IOException {
+    protected void disposeFileRead() throws IOException {
         _fileInputStream.close();
         _objectInputStream.close();
     }
