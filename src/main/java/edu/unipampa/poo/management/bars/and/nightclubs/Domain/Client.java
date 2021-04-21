@@ -41,6 +41,14 @@ public class Client implements Serializable {
     @Override
     public boolean equals(Object client) {
         var clientCast = (Client) client;
-        return this._rg.equals(clientCast._rg);
+        return _rg.equals(clientCast._rg);
     }
+
+    public boolean isValid() {
+		if(_rg.isEmpty() || _name.isEmpty()) {
+			return false;
+		}
+		
+		return true;
+	}
 }

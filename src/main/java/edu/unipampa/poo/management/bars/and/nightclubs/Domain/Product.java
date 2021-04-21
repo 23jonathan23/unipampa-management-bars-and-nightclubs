@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 	private final int MINIMUM_QUANTITY = 0;
+	private final int MINIMUM_PRICE = 0;
 	private int _code;
 	private String _description;
 	private int _quantity;
@@ -48,6 +49,14 @@ public class Product implements Serializable {
 	@Override
     public boolean equals(Object product) {
         var productCast = (Product) product;
-        return this._code == productCast._code;
+        return _code == productCast._code;
     }
+
+	public boolean isValid() {
+		if(_description.isEmpty() ||_priceCost <= MINIMUM_PRICE || _priceSale <= MINIMUM_PRICE) {
+			return false;
+		}
+		
+		return true;
+	}
 }

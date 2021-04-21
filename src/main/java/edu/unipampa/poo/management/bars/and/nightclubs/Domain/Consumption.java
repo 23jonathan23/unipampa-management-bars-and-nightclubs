@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Consumption implements Serializable {
     private final int MINIMUM_QUANTITY = 0;
+    private final int MINIMUM_CODE_PRODUCT = 0;
 	private int _code;
     private String _rgClient;
     private int _codeProduct;
@@ -42,6 +43,14 @@ public class Consumption implements Serializable {
     @Override
     public boolean equals(Object consumption) {
         var consumptionCast = (Consumption) consumption;
-        return this._code == consumptionCast._code;
+        return _code == consumptionCast._code;
     }
+
+    public boolean isValid() {
+		if(_rgClient.isEmpty() || _codeProduct <= MINIMUM_CODE_PRODUCT || _quantity <= MINIMUM_QUANTITY) {
+			return false;
+		}
+		
+		return true;
+	}
 }
