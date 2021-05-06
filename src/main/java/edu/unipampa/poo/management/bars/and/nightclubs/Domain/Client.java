@@ -31,11 +31,12 @@ public class Client implements Serializable {
         return _credit;
     }
 
-    public void setCredit(double credit) throws IllegalArgumentException {
-        if(credit <= MINIMUM_CREDIT) {
-            throw new IllegalArgumentException("Valor informado é inválido, o valor informado deve ser maior que 0");
+    public void addCredit(double credit) throws IllegalArgumentException {
+        if (credit <= MINIMUM_CREDIT) {
+            throw new IllegalArgumentException("O valor informado deve ser maior do que 0");
         }
-        _credit = credit;
+
+        _credit += credit;
     }
     
     @Override
@@ -45,7 +46,7 @@ public class Client implements Serializable {
     }
 
     public boolean isValid() {
-		if(_rg.isEmpty() || _name.isEmpty()) {
+		if (_rg.isEmpty() || _name.isEmpty()) {
 			return false;
 		}
 		
