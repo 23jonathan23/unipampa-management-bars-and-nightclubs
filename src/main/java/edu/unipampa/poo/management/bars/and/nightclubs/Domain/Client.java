@@ -38,6 +38,16 @@ public class Client implements Serializable {
 
         _credit += credit;
     }
+
+    public void subCredit(double credit) throws IllegalArgumentException {
+        if (credit <= MINIMUM_CREDIT) {
+            throw new IllegalArgumentException("O valor informado deve ser maior do que 0");
+        } else if((_credit - credit) < MINIMUM_CREDIT) {
+            throw new IllegalArgumentException("O débito a descontar é maior que o saldo atual!");
+        }
+
+        _credit -= credit;
+    }
     
     @Override
     public boolean equals(Object client) {
