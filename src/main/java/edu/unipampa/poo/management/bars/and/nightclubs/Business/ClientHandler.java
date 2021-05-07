@@ -39,12 +39,12 @@ public class ClientHandler {
         }
     }
     
-    public Client getSingleClient(int clientCode) throws Exception, IllegalArgumentException {
+    public Client getSingleClient(String clientRg) throws Exception, IllegalArgumentException {
         try {
             var clientList = _repository.queryAll();
             
-            for (var client : listClient) {
-                if (client.getCode() == clientCode) {
+            for (var client : clientList) {
+                if (client.getRg().equals(clientRg)) {
                     return client;
                 }
             }
@@ -57,9 +57,9 @@ public class ClientHandler {
         }
     }
 
-    public void addCreditToClient(double creditToBeAdded, int clientCode) {
-        var client = getSingleClient(clientCode);
+    public void addCreditToClient(double creditToBeAdded, String clientRg) throws Exception{
+        var client = getSingleClient(clientRg);
 
-        client.addCredit(clientCode);
+        client.addCredit(creditToBeAdded);
     }
 }

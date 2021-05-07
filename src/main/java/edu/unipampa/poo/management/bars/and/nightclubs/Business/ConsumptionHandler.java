@@ -48,7 +48,7 @@ public class ConsumptionHandler {
         }
     }
 
-    public double payConsumptionsByClient(String rgClient) {
+    public double payConsumptionsByClient(String rgClient) throws Exception{
         try {
             var client = _clientHandler.getSingleClient(rgClient);
             
