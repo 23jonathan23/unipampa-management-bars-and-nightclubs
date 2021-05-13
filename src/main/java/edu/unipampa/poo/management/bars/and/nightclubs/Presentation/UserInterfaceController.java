@@ -6,7 +6,9 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.Tabs.Product
 import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.Tabs.ConsumptionsTab;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Client;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientCabin;
+import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
+import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Config.Configuration;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Repository.DBRepository;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ClientHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ProductHandler;
@@ -18,6 +20,7 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.nio.file.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +52,13 @@ public class UserInterfaceController implements Initializable{
     private ProductHandler productHandler;
     private ConsumptionHandler consumptionHandler;
     
+    public UserInterfaceController() throws FileNotFoundException, IOException {
+        var configuration = new Configuration().Load();
+        clientHandler = new ClientHandler(new DBRepository<Client>(configuration._dbClient));
+        productHandler = new ProductHandler(new DBRepository<Product>(configuration._dbProduct));
+        consumptionHandler = new ConsumptionHandler(new DBRepository<Consumption>(configuration._dbProduct), clientHandler, productHandler);
+    }
+
     @FXML
     private TabPane tab;
     @FXML
