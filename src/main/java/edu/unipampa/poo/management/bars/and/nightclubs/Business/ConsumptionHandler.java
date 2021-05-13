@@ -207,6 +207,10 @@ public class ConsumptionHandler {
     private int getLastConsumptionCode() throws Exception {
         var consumptionList = getConsumptions();
         
+        if (consumptionList.size() == 0) {
+            return 0;
+        }
+        
         var SUBTRACT_INDEX = 1;
     
         return consumptionList.get(consumptionList.size() - SUBTRACT_INDEX).getCode();
