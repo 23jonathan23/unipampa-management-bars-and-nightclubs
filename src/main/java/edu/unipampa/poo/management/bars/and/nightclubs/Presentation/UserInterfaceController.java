@@ -43,7 +43,7 @@ public class UserInterfaceController implements Initializable{
     private ProductsTab productsTabContent;
     private ConsumptionsTab consumptionsTabContent;
     
-    private Path path = Paths.get(System.getProperty("user.dir") + "/src/main/java/edu/unipampa/poo/management/bars/and/nightclubs/Infra/DataBase/db.bin");
+    private Path path = Paths.get(System.getProperty("user.dir") + "/src/main/java/edu/unipampa/poo/management/bars/and/nightclubs/Infra/DataBase/" + "db.bin");
     private DBRepository repository = new DBRepository(path);
     private ClientHandler clientHandler = new ClientHandler(repository);
     private ProductHandler productHandler = new ProductHandler(repository);

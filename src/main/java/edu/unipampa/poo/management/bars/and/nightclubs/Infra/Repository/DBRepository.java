@@ -26,13 +26,13 @@ public class DBRepository<T> implements IDBRepository<T>{
         _pathDB = pathBD;
     }
 
-    public void insert(T entity) throws IOException, ClassNotFoundException, IllegalArgumentException {
-        List<T> listEntity = new ArrayList<>();
+    public void insert(Object entity) throws IOException, ClassNotFoundException, IllegalArgumentException {
+        List<Object> listEntity = new ArrayList<>();
 
         if (Files.exists(_pathDB)) {
             openFileRead(_pathDB.toString());
 
-            listEntity = (List<T>) _objectInputStream.readObject();
+            listEntity = (List<Object>) _objectInputStream.readObject();
 
             disposeFileRead();
 
