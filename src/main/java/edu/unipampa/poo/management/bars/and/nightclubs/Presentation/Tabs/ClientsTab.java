@@ -28,6 +28,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ClientsTab {
+    
+    private ClientHandler clientHandler;
+    private TableView clientTableView;
+    
     private void consultClient(Client client, ConsumptionHandler consumptionHandler) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../ClientModal.fxml"));
 
@@ -81,7 +85,10 @@ public class ClientsTab {
     }
 
     public void render(Tab clientsTab, ClientHandler clientHandler, ConsumptionHandler consumptionHandler) {
-        TableView clientTableView = new TableView();
+        
+        this.clientHandler = clientHandler;
+        
+        clientTableView = new TableView();
             
         TableColumn<Client, String> rgColumn = new TableColumn<>("RG");
         rgColumn.setMinWidth(150);
@@ -105,19 +112,15 @@ public class ClientsTab {
 
         clientTableView.getColumns().addAll(rgColumn, nameColumn, /*categoryColum,*/ creditColumn, editColumn);
         clientsTab.setContent(clientTableView);
-        
-        List<Client> clientList = new ArrayList<>();
-
-        try {
-            clientList = clientHandler.getClients();
-        } catch (Exception e) {
-            // System.out.println("Não foi possível carregar a lista de clientes");
-        }
-
-        Client client = new ClientCabin("000000000", "Cliente fictício", 45d);
-        clientList.add(client);
-
-        ObservableList<Client> observableClientList = FXCollections.observableArrayList(clientList);        
+    }
+    
+    public void addContent(String category) throws Exception {
+        ObservableList<Client> observableClientList = FXCollections.observableArrayList(clientHandler.getClientByCategory(category));
+        clientTableView.setItems(observableClientList);
+    }
+    
+    public void addContentByRg(String rg) throws Exception {
+        ObservableList<Client> observableClientList = FXCollections.observableArrayList(clientHandler.getSingleClient(rg));
         clientTableView.setItems(observableClientList);
     }
 }

@@ -10,6 +10,7 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientVip;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Repository.DBRepository;
+import java.io.IOException;
 
 public class ConsumptionHandler {
     private DBRepository _repository;
@@ -75,6 +76,34 @@ public class ConsumptionHandler {
         } catch(Exception err) {
             throw new Exception("Ocorreu um erro inesperado ao tentar realizar o pagamento da conta do cliente", err);
         }
+    }
+    
+    public double getSpent() throws Exception{
+        List<Consumption> consu = getConsumptions();
+        double valor = 0d;
+        for (Consumption c : consu) {
+            valor += _productHandler.getProduct(c.getCodeProduct()).getPriceCost() * c.getQuantity();
+        }
+        return valor;
+    }
+    
+    public double getSaled() throws Exception{
+        List<Consumption> consu = getConsumptions();
+        double valor = 0d;
+        for (Consumption c : consu) {
+            valor += _productHandler.getProduct(c.getCodeProduct()).getPriceSale() * c.getQuantity();
+        }
+        return valor;
+    }
+    
+    public List<String> getReportAll() throws IllegalArgumentException, Exception {
+        List<Consumption> cons = getConsumptions();
+        List<String> valores = new ArrayList<>();
+        
+        for (Consumption c : cons) {
+            valores.add(getReportConsumptionsByClient(c.getRgClient()));
+        }
+        return valores;
     }
 
     public String getReportConsumptionsByClient(String rgClient) throws IllegalArgumentException, Exception {
@@ -149,6 +178,19 @@ public class ConsumptionHandler {
             throw err;
         } catch(Exception err) {
             throw err;
+        }
+    }
+    
+    public List<Consumption> getConsumptionsByClient(String rg) throws Exception, IllegalArgumentException {
+        Client client = _clientHandler.getSingleClient(rg);
+        return getConsumptionsByClient(client);
+    }
+    
+    public void clear()  throws Exception, IOException, ClassNotFoundException, IllegalArgumentException {
+        List<Consumption> cons = getConsumptions();
+        
+        for (Consumption c : cons) {
+            _repository.delete(c);
         }
     }
 
