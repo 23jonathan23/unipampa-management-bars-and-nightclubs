@@ -1,10 +1,12 @@
 package edu.unipampa.poo.management.bars.and.nightclubs.Presentation;
 
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ConsumptionHandler;
+import edu.unipampa.poo.management.bars.and.nightclubs.Business.ClientHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Client;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientCabin;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientVip;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
+import java.io.IOException;
 
 import java.net.URL;
 import java.util.List;
@@ -21,10 +23,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 public class ClientModalController implements Initializable{
+    private Client c;
+    private ClientHandler ch;
+    
     @FXML
     private TableView tv;
     @FXML
     private Button save;
+    @FXML
+    private Button edit;
     @FXML
     private Button delete;
     @FXML
@@ -41,13 +48,19 @@ public class ClientModalController implements Initializable{
     private Text textTicket;
     
     @FXML
+    public void toEdit(ActionEvent event) {
+        
+    }
+    
+    @FXML
     public void toSave(ActionEvent event) {
         System.out.println("deu");
     }
 
     @FXML
-    public void toDelete(ActionEvent event) {
+    public void toDelete(ActionEvent event) throws Exception, IOException, ClassNotFoundException, IllegalArgumentException {
         System.out.println("deu");
+        ch.delete(c);
     }
 
     @FXML
@@ -55,12 +68,12 @@ public class ClientModalController implements Initializable{
         System.out.println("deu");
     }
     
-    public void setClientData(Client client, ConsumptionHandler consumptionHandler) {
+    public void setClientData(Client client, ConsumptionHandler consumptionHandler, ClientHandler clientHandler) {
+        c = client;
+        ch = clientHandler;
         textName.setText(client.getName());
         textRg.setText(client.getRg());
         textCredit.setText(client.getCredit() + "");
-        
-        Client c;
         
         if (client instanceof ClientVip) {
             textCategory.setText("VIP");
