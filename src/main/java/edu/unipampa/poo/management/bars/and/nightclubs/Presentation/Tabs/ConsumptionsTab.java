@@ -9,6 +9,7 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Business.ProductHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
 import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.ClientModalController;
+import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.AddConsumptionController;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -37,7 +38,21 @@ public class ConsumptionsTab {
     TableView consumptionTableView;
     
     public void consultConsumption(Consumption consumption) {
-        
+        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("./AddConsumption.fxml"));
+                 
+                 Parent root3 = null;
+                 try {
+                     root3 = loader3.load();
+                 } catch (IOException e) {}
+                 
+                 AddConsumptionController addCons = loader3.getController();
+                 
+                 Stage stage3 = new Stage();
+                 stage3.setScene(new Scene(root3));
+                 stage3.show();
+                 
+                 addCons.setConsumptionHandler(consumptionHandler);
+                 addCons.setFields(consumption);
     }
     
     private void addEditButton(TableColumn tableColumn) {

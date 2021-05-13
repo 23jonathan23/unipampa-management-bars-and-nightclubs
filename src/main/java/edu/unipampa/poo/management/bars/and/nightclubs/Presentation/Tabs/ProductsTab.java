@@ -2,6 +2,7 @@ package edu.unipampa.poo.management.bars.and.nightclubs.Presentation.Tabs;
 
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ProductHandler;
+import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.AddOrEditProductModalController;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,6 +19,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import java.io.IOException;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 public class ProductsTab {
     
@@ -25,7 +31,21 @@ public class ProductsTab {
     private TableView productTableView;
     
     public void consultProduct(Product product) {
-        
+        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("./AddConsumption.fxml"));
+                 
+                 Parent root3 = null;
+                 try {
+                     root3 = loader3.load();
+                 } catch (IOException e) {}
+                 
+                 AddOrEditProductModalController addCons = loader3.getController();
+                 
+                 Stage stage3 = new Stage();
+                 stage3.setScene(new Scene(root3));
+                 stage3.show();
+                 
+                 addCons.setProductHandler(productHandler);
+                 addCons.setFields(product);
     }
     
     private void addEditButton(TableColumn tableColumn) {

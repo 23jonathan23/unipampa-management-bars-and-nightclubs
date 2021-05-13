@@ -65,4 +65,11 @@ public class AddOrEditProductModalController implements Initializable{
     public void setProductHandler(ProductHandler productHandler) {
         this.productHandler = productHandler;
     }
+    
+    public void setFields(Product product) {
+        description.setText(product.getDescription());
+        quantity.setText(product.getQuantity() + "");
+        buyPrice.setText(product.getPriceCost() + "");
+        sellPrice.setText(product.getPriceSale() + "");
+    }
 }

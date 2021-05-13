@@ -12,6 +12,8 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Business.ClientHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ProductHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ConsumptionHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.AddOrEditClientModalController;
+import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Config.Configuration;
+import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,11 +45,9 @@ public class UserInterfaceController implements Initializable{
     private ProductsTab productsTabContent;
     private ConsumptionsTab consumptionsTabContent;
     
-    private Path path = Paths.get(System.getProperty("user.dir") + "/src/main/java/edu/unipampa/poo/management/bars/and/nightclubs/Infra/DataBase/" + "db.bin");
-    private DBRepository repository = new DBRepository(path);
-    private ClientHandler clientHandler = new ClientHandler(repository);
-    private ProductHandler productHandler = new ProductHandler(repository);
-    private ConsumptionHandler consumptionHandler = new ConsumptionHandler(repository, clientHandler, productHandler);
+    private ClientHandler clientHandler;
+    private ProductHandler productHandler;
+    private ConsumptionHandler consumptionHandler;
     
     @FXML
     private TabPane tab;
@@ -169,6 +169,16 @@ public class UserInterfaceController implements Initializable{
         
         comboBox.getItems().addAll("", "VIP", "Pista", "Camarote");
         activeBox = "";
+        
+        Configuration configuration = null;
+        try {
+            configuration = new Configuration().Load();
+        } catch (Exception e) {
+            
+        }
+        clientHandler = new ClientHandler(new DBRepository<Client>(configuration._dbClient));
+        productHandler = new ProductHandler(new DBRepository<Product>(configuration._dbProduct));
+        consumptionHandler = new ConsumptionHandler(new DBRepository<Consumption>(configuration._dbProduct), clientHandler, productHandler);
     }
     
     @FXML
@@ -207,6 +217,23 @@ public class UserInterfaceController implements Initializable{
                 
                 addOrEditProductModalController.setProductHandler(productHandler);
                 break;
+                
+            case "consumptions":
+                 FXMLLoader loader3 = new FXMLLoader(getClass().getResource("./AddConsumption.fxml"));
+                 
+                 Parent root3 = null;
+                 try {
+                     root3 = loader3.load();
+                 } catch (IOException e) {}
+                 
+                 AddConsumptionController addCons = loader3.getController();
+                 
+                 Stage stage3 = new Stage();
+                 stage3.setScene(new Scene(root3));
+                 stage3.show();
+                 
+                 addCons.setConsumptionHandler(consumptionHandler);
+                 break;
             default:
                 break;
         }
