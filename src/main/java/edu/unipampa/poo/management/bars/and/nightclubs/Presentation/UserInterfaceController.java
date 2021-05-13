@@ -149,7 +149,8 @@ public class UserInterfaceController implements Initializable{
 
         clientsTabContent = new ClientsTab();
         clientsTabContent.render(clientsTab, clientHandler, consumptionHandler);
-        
+        clientsTabContent.setContents();
+
         activeTab = "clients";
     }
 
@@ -160,7 +161,7 @@ public class UserInterfaceController implements Initializable{
 
         productsTabContent = new ProductsTab();
         productsTabContent.render(productsTab, productHandler);
-
+        
         activeTab = "products";
     }
     

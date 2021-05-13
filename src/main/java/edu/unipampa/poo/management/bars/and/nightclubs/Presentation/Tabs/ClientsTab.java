@@ -114,6 +114,11 @@ public class ClientsTab {
         clientsTab.setContent(clientTableView);
     }
     
+    public void setContents() throws Exception {
+        ObservableList<Client> observableClientList = FXCollections.observableArrayList(clientHandler.getClients());
+        clientTableView.setItems(observableClientList);
+    }
+
     public void addContent(String category) throws Exception {
         ObservableList<Client> observableClientList = FXCollections.observableArrayList(clientHandler.getClientByCategory(category));
         clientTableView.setItems(observableClientList);
