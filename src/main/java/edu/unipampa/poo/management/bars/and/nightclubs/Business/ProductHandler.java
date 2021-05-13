@@ -6,6 +6,7 @@ import java.util.List;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Repository.DBRepository;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Interfaces.IDBRepository;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProductHandler {
@@ -33,6 +34,10 @@ public class ProductHandler {
         } catch (Exception err) {
             throw new Exception("Ocorreu um erro inesperado ao tentar cadastrar o produto", err);
         }
+    }
+    
+    public void delete(Product product) throws Exception, IOException, ClassNotFoundException, IllegalArgumentException {
+        _repository.delete(product);
     }
 
     

@@ -54,6 +54,10 @@ public class ClientHandler {
             _repository.delete(c);
         }
     }
+    
+    public void delete(Client client)  throws Exception, IOException, ClassNotFoundException, IllegalArgumentException {
+        _repository.delete(client);
+    }
 
     public List<Client> getClients() throws Exception {
         try {
