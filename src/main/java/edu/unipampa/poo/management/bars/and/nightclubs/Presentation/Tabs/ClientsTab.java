@@ -29,7 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ClientsTab {
     private void consultClient(Client client, ConsumptionHandler consumptionHandler) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientModal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../ClientModal.fxml"));
 
         Parent root = null;
         
