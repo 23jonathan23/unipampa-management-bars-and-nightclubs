@@ -8,6 +8,7 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Client;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientCabin;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientVip;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
+import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Interfaces.IDBRepository;
 
 public class ConsumptionHandler {
@@ -115,6 +116,18 @@ public class ConsumptionHandler {
         } catch(Exception err) {
             throw new Exception("Ocorreu um erro inesperado ao tentar obter os consumos do cliente", err);
         }
+    }
+    
+    public List<Product> getProducts(Client client) throws Exception, IllegalArgumentException{
+        List<Product> products = new ArrayList<>();
+        
+        List<Consumption> consu = getConsumptionsByClient(client);
+        
+        for (Consumption c : consu) {
+            products.add(_productHandler.getProduct(c.getCodeProduct()));
+        }
+        
+        return products;
     }
 
     private List<Consumption> getConsumptionsByClient(Client client) throws Exception, IllegalArgumentException {
