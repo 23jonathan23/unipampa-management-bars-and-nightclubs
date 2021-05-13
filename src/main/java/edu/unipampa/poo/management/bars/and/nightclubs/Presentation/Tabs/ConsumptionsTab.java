@@ -6,7 +6,6 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientCabin;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ClientHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ConsumptionHandler;
 import edu.unipampa.poo.management.bars.and.nightclubs.Business.ProductHandler;
-import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
 import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.ClientModalController;
 import edu.unipampa.poo.management.bars.and.nightclubs.Presentation.AddConsumptionController;
@@ -35,10 +34,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ConsumptionsTab {
     
     private ConsumptionHandler consumptionHandler;
-    TableView consumptionTableView;
+    private TableView consumptionTableView;
     
     public void consultConsumption(Consumption consumption) {
-        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("./AddConsumption.fxml"));
+        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("../AddConsumption.fxml"));
                  
                  Parent root3 = null;
                  try {
@@ -88,36 +87,31 @@ public class ConsumptionsTab {
     }
     
     public void render(Tab consumptionsTab, ConsumptionHandler consumptionHandler) {
+        this.consumptionHandler = consumptionHandler;
         consumptionTableView = new TableView();
             
-        TableColumn<Product, String> codeColumn = new TableColumn<>("Código");
+        TableColumn<Consumption, String> codeColumn = new TableColumn<>("Código");
         codeColumn.setMinWidth(150);
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
         
-        TableColumn<Product, String> descriptionColumn = new TableColumn<>("RG do cliente");
-        descriptionColumn.setMinWidth(300);
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("rgClient"));
-        
-        TableColumn<Product, String> codeProductColumn = new TableColumn<>("Código do Produto");
-        codeProductColumn.setMinWidth(150);
-        codeProductColumn.setCellValueFactory(new PropertyValueFactory<>("codeProduct"));
-        
-        TableColumn<Product, String> quantityColumn = new TableColumn<>("Quantidade");
+        TableColumn<Consumption, String> quantityColumn = new TableColumn<>("Quantidade");
         quantityColumn.setMinWidth(150);
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         
-        TableColumn<Product, String> editColumn = new TableColumn<>("Detalhes");
+        TableColumn<Consumption, String> editColumn = new TableColumn<>("Detalhes");
         editColumn.setMinWidth(150);
         addEditButton(editColumn);
 
-        consumptionTableView.getColumns().addAll(codeColumn, descriptionColumn, codeProductColumn, quantityColumn);
+        consumptionTableView.getColumns().addAll(codeColumn, quantityColumn, editColumn);
         consumptionsTab.setContent(consumptionTableView);
     }
     
     public void addContent(String search) throws Exception{
-        ObservableList<Consumption> consumptions;
-        if (search == null) {
+        ObservableList<Consumption> consumptions = null;
+        if (search.equals("") || search == null) {
+            System.out.println("está entrando na content");
             consumptions = FXCollections.observableArrayList(consumptionHandler.getConsumptions());
+            System.out.println("está entrando na content222222");
             consumptionTableView.setItems(consumptions);
         } else {
             consumptions = FXCollections.observableArrayList(consumptionHandler.getConsumptionsByClient(search));

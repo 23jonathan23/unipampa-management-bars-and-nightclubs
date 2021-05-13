@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class Consumption implements Serializable {
     private final int MINIMUM_QUANTITY = 0;
     private final int MINIMUM_CODE_PRODUCT = 0;
-	private int _code;
-    private String _rgClient;
+    private int _code;
+    private String _rg;
     private int _codeProduct;
     private int _quantity;
 
-    public Consumption(int code, String rgClient, int codeProduct, int quantity) {
+    public Consumption(int code, String rgclient, int codeproduct, int quantity) {
         _code = code;
-        _rgClient = rgClient;
-        _codeProduct = codeProduct;
+        _rg = rgclient;
+        _codeProduct = codeproduct;
         _quantity = quantity;
     }
 
@@ -21,11 +21,11 @@ public class Consumption implements Serializable {
         return _code;
     }
 
-    public String getRgClient() {
-        return _rgClient;
+    public String getRg() {
+        return _rg;
     }
 
-    public int getCodeProduct() {
+    public int getCodeproduct() {
         return _codeProduct;
     }
 
@@ -47,7 +47,7 @@ public class Consumption implements Serializable {
     }
 
     public boolean isValid() {
-		if(_rgClient.isEmpty() || _codeProduct <= MINIMUM_CODE_PRODUCT || _quantity <= MINIMUM_QUANTITY) {
+		if(_rg.isEmpty() || _codeProduct <= MINIMUM_CODE_PRODUCT || _quantity <= MINIMUM_QUANTITY) {
 			return false;
 		}
 		

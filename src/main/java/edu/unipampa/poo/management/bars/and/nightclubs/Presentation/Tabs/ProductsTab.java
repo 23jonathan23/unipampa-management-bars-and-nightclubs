@@ -31,7 +31,7 @@ public class ProductsTab {
     private TableView productTableView;
     
     public void consultProduct(Product product) {
-        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("./AddConsumption.fxml"));
+        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("../AddOrEditProductModal.fxml"));
                  
                  Parent root3 = null;
                  try {
@@ -83,8 +83,6 @@ public class ProductsTab {
     public void render(Tab productsTab, ProductHandler productHandler) {
         this.productHandler = productHandler;
         productTableView = new TableView();
-        
-        TableView ProductTableView = new TableView();
             
         TableColumn<Product, String> codeColumn = new TableColumn<>("Código");
         codeColumn.setMinWidth(150);
@@ -110,15 +108,19 @@ public class ProductsTab {
         editColumn.setMinWidth(150);
         addEditButton(editColumn);
 
-        ProductTableView.getColumns().addAll(codeColumn, descriptionColumn, quantityColumn, priceCostColumn, priceSaleColumn);
-        productsTab.setContent(ProductTableView);
+        productTableView.getColumns().addAll(codeColumn, descriptionColumn, quantityColumn, priceCostColumn, priceSaleColumn, editColumn);
+        productsTab.setContent(productTableView);
     }
     
     public void addContent(String search) throws Exception{
         ObservableList<Product> products;
         
-        if (search == null) {
+        if (search.equals("") || search == null) {
+            System.out.println("está entrando na content");
             products = FXCollections.observableArrayList(productHandler.getProducts());
+            if (products != null) {
+                System.out.println("não está nulo o observable");
+            }
             productTableView.setItems(products);
         } else {
             products = null;

@@ -58,7 +58,7 @@ public class ConsumptionHandler {
             
             var totalPayable = client.getTicket();
             for (var consumption : consumptions) {
-                var product = _productHandler.getProduct(consumption.getCodeProduct());
+                var product = _productHandler.getProduct(consumption.getCodeproduct());
                 
                 totalPayable += (consumption.getQuantity() * product.getPriceSale());
             }
@@ -82,7 +82,7 @@ public class ConsumptionHandler {
         List<Consumption> consu = getConsumptions();
         double valor = 0d;
         for (Consumption c : consu) {
-            valor += _productHandler.getProduct(c.getCodeProduct()).getPriceCost() * c.getQuantity();
+            valor += _productHandler.getProduct(c.getCodeproduct()).getPriceCost() * c.getQuantity();
         }
         return valor;
     }
@@ -91,7 +91,7 @@ public class ConsumptionHandler {
         List<Consumption> consu = getConsumptions();
         double valor = 0d;
         for (Consumption c : consu) {
-            valor += _productHandler.getProduct(c.getCodeProduct()).getPriceSale() * c.getQuantity();
+            valor += _productHandler.getProduct(c.getCodeproduct()).getPriceSale() * c.getQuantity();
         }
         return valor;
     }
@@ -101,7 +101,7 @@ public class ConsumptionHandler {
         List<String> valores = new ArrayList<>();
         
         for (Consumption c : cons) {
-            valores.add(getReportConsumptionsByClient(c.getRgClient()));
+            valores.add(getReportConsumptionsByClient(c.getRg()));
         }
         return valores;
     }
@@ -125,7 +125,7 @@ public class ConsumptionHandler {
             double totalPrice = 0;
 
             for (var consumption : consumptions) {
-                var product = _productHandler.getProduct(consumption.getCodeProduct());
+                var product = _productHandler.getProduct(consumption.getCodeproduct());
                 
                 double totalPriceByProduct = (consumption.getQuantity() * product.getPriceSale());
                 
@@ -155,7 +155,7 @@ public class ConsumptionHandler {
         List<Consumption> consu = getConsumptionsByClient(client);
         
         for (Consumption c : consu) {
-            products.add(_productHandler.getProduct(c.getCodeProduct()));
+            products.add(_productHandler.getProduct(c.getCodeproduct()));
         }
         
         return products;
@@ -167,7 +167,7 @@ public class ConsumptionHandler {
             var clientConsumptions = new ArrayList<Consumption>();
 
             for (var consumption : listConsumptions) {
-                if (consumption.getRgClient().equals(client.getRg())) {
+                if (consumption.getRg().equals(client.getRg())) {
                     clientConsumptions.add(consumption);
                 }
             }

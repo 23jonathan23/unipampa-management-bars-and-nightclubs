@@ -118,7 +118,8 @@ public class UserInterfaceController implements Initializable{
         System.out.println("ESTÁ ENTRANDO NA CONSULTA");
         try {
             if (activeTab.equals("clients")) {
-                if (search.getText() == null) {
+                if (search.getText().equals("")) {
+                    System.out.println("está nulo mesmo");
                     clientsTabContent.addContent(activeBox);
                 } else {
                     clientsTabContent.addContentByRg(search.getText());

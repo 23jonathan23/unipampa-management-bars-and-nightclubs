@@ -69,8 +69,8 @@ public class AddConsumptionController implements Initializable{
     }
     
     public void setFields(Consumption consumption) {
-        rg.setText(consumption.getRgClient());
-        codPro.setText(consumption.getCodeProduct() + "");
+        rg.setText(consumption.getRg());
+        codPro.setText(consumption.getCodeproduct() + "");
         quantity.setText(consumption.getQuantity() + "");
     }
     
