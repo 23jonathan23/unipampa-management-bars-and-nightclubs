@@ -15,7 +15,7 @@
         </tabs>
       </TabPane>
       <TextField fx:id="search" layoutX="403.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" />
-      <Button fx:id="listAll" layoutX="598.0" layoutY="14.0" mnemonicParsing="false" text="Todos" />
+      <Button fx:id="listAll" layoutX="598.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadAll" text="Todos" />
       <Button fx:id="add" layoutX="919.0" layoutY="14.0" mnemonicParsing="false" text="Adicionar" />
    </children>
 </AnchorPane>
