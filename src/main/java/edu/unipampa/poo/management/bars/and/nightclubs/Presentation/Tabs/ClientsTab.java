@@ -53,7 +53,7 @@ public class ClientsTab {
             @Override
             public TableCell<Client, Void> call(final TableColumn<Client, Void> param) {
                 final TableCell<Client, Void> cell = new TableCell<Client, Void>() {
-                    private final Button btn = new Button("Ver");
+                    private final Button btn = new Button("Detalhes");
 
                     {
                         btn.setOnAction((ActionEvent event) -> {
@@ -99,7 +99,7 @@ public class ClientsTab {
         creditColumn.setMinWidth(150);
         creditColumn.setCellValueFactory(new PropertyValueFactory<>("credit"));
 
-        TableColumn<Client, String> editColumn = new TableColumn<>("  ");
+        TableColumn<Client, String> editColumn = new TableColumn<>("Detalhes");
         editColumn.setMinWidth(150);
         addEditButton(editColumn, consumptionHandler);
 
@@ -111,7 +111,7 @@ public class ClientsTab {
         try {
             clientList = clientHandler.getClients();
         } catch (Exception e) {
-            System.out.println("Não foi possível carregar a lista de clientes");
+            // System.out.println("Não foi possível carregar a lista de clientes");
         }
 
         Client client = new ClientCabin("000000000", "Cliente fictício", 45d);

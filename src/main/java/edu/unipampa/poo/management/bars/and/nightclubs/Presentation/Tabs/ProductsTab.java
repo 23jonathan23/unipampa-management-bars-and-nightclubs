@@ -47,7 +47,7 @@ public class ProductsTab {
         try {
             productList = productHandler.getProducts();
         } catch (Exception e) {
-            System.out.println("Não foi possível carregar a lista de produtos");
+            // System.out.println("Não foi possível carregar a lista de produtos");
         }
 
         Product Product = new Product(1, "Description", 3, 30d, 20d);
