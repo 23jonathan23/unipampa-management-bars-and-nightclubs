@@ -95,19 +95,25 @@ public class DBRepository<T> implements IDBRepository<T>{
     }
 
     public List<T> queryAll() throws IOException, ClassNotFoundException {
-        if (_updateCache) {
-            openFileRead(_pathDB.toString());
-    
-            var listEntity = (List<T>) _objectInputStream.readObject();
-    
-            disposeFileRead();
+        if (Files.exists(_pathDB)) {
+            if (_updateCache) {
+                openFileRead(_pathDB.toString());
 
-            _updateCache = false;
-    
-            return listEntity;
+                var listEntity = (List<T>) _objectInputStream.readObject();
+
+                disposeFileRead();
+                
+                _cache = listEntity;
+
+                _updateCache = false;
+
+                return listEntity;
+            }
+
+            return _cache;
         }
-
-        return _cache;
+        
+        return new ArrayList<T>();
     }
 
     private void openFileWrite(String file) throws IOException {

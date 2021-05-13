@@ -10,6 +10,7 @@ import edu.unipampa.poo.management.bars.and.nightclubs.Domain.ClientVip;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Consumption;
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Repository.DBRepository;
+import java.io.IOException;
 
 public class ConsumptionHandler {
     private DBRepository _repository;
@@ -57,7 +58,7 @@ public class ConsumptionHandler {
             
             var totalPayable = client.getTicket();
             for (var consumption : consumptions) {
-                var product = _productHandler.getProduct(consumption.getCodeProduct());
+                var product = _productHandler.getProduct(consumption.getCodeproduct());
                 
                 totalPayable += (consumption.getQuantity() * product.getPriceSale());
             }
@@ -75,6 +76,34 @@ public class ConsumptionHandler {
         } catch(Exception err) {
             throw new Exception("Ocorreu um erro inesperado ao tentar realizar o pagamento da conta do cliente", err);
         }
+    }
+    
+    public double getSpent() throws Exception{
+        List<Consumption> consu = getConsumptions();
+        double valor = 0d;
+        for (Consumption c : consu) {
+            valor += _productHandler.getProduct(c.getCodeproduct()).getPriceCost() * c.getQuantity();
+        }
+        return valor;
+    }
+    
+    public double getSaled() throws Exception{
+        List<Consumption> consu = getConsumptions();
+        double valor = 0d;
+        for (Consumption c : consu) {
+            valor += _productHandler.getProduct(c.getCodeproduct()).getPriceSale() * c.getQuantity();
+        }
+        return valor;
+    }
+    
+    public List<String> getReportAll() throws IllegalArgumentException, Exception {
+        List<Consumption> cons = getConsumptions();
+        List<String> valores = new ArrayList<>();
+        
+        for (Consumption c : cons) {
+            valores.add(getReportConsumptionsByClient(c.getRg()));
+        }
+        return valores;
     }
 
     public String getReportConsumptionsByClient(String rgClient) throws IllegalArgumentException, Exception {
@@ -96,7 +125,7 @@ public class ConsumptionHandler {
             double totalPrice = 0;
 
             for (var consumption : consumptions) {
-                var product = _productHandler.getProduct(consumption.getCodeProduct());
+                var product = _productHandler.getProduct(consumption.getCodeproduct());
                 
                 double totalPriceByProduct = (consumption.getQuantity() * product.getPriceSale());
                 
@@ -126,7 +155,7 @@ public class ConsumptionHandler {
         List<Consumption> consu = getConsumptionsByClient(client);
         
         for (Consumption c : consu) {
-            products.add(_productHandler.getProduct(c.getCodeProduct()));
+            products.add(_productHandler.getProduct(c.getCodeproduct()));
         }
         
         return products;
@@ -138,7 +167,7 @@ public class ConsumptionHandler {
             var clientConsumptions = new ArrayList<Consumption>();
 
             for (var consumption : listConsumptions) {
-                if (consumption.getRgClient().equals(client.getRg())) {
+                if (consumption.getRg().equals(client.getRg())) {
                     clientConsumptions.add(consumption);
                 }
             }
@@ -149,6 +178,19 @@ public class ConsumptionHandler {
             throw err;
         } catch(Exception err) {
             throw err;
+        }
+    }
+    
+    public List<Consumption> getConsumptionsByClient(String rg) throws Exception, IllegalArgumentException {
+        Client client = _clientHandler.getSingleClient(rg);
+        return getConsumptionsByClient(client);
+    }
+    
+    public void clear()  throws Exception, IOException, ClassNotFoundException, IllegalArgumentException {
+        List<Consumption> cons = getConsumptions();
+        
+        for (Consumption c : cons) {
+            _repository.delete(c);
         }
     }
 
@@ -164,6 +206,10 @@ public class ConsumptionHandler {
 
     private int getLastConsumptionCode() throws Exception {
         var consumptionList = getConsumptions();
+        
+        if (consumptionList.size() == 0) {
+            return 0;
+        }
         
         var SUBTRACT_INDEX = 1;
     
