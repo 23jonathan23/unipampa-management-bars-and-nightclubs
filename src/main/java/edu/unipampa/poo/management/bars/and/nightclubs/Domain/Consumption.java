@@ -1,16 +1,19 @@
 package edu.unipampa.poo.management.bars.and.nightclubs.Domain;
 
-public class Consumption {
+import java.io.Serializable;
+
+public class Consumption implements Serializable {
     private final int MINIMUM_QUANTITY = 0;
-	private int _code;
-    private String _rgClient;
+    private final int MINIMUM_CODE_PRODUCT = 0;
+    private int _code;
+    private String _rg;
     private int _codeProduct;
     private int _quantity;
 
-    public Consumption(int code, String rgClient, int codeProduct, int quantity) {
+    public Consumption(int code, String rgclient, int codeproduct, int quantity) {
         _code = code;
-        _rgClient = rgClient;
-        _codeProduct = codeProduct;
+        _rg = rgclient;
+        _codeProduct = codeproduct;
         _quantity = quantity;
     }
 
@@ -18,11 +21,11 @@ public class Consumption {
         return _code;
     }
 
-    public String getRgClient() {
-        return _rgClient;
+    public String getRg() {
+        return _rg;
     }
 
-    public int getCodeProduct() {
+    public int getCodeproduct() {
         return _codeProduct;
     }
 
@@ -36,4 +39,18 @@ public class Consumption {
 		}
         _quantity = quantity;
     }
+
+    @Override
+    public boolean equals(Object consumption) {
+        var consumptionCast = (Consumption) consumption;
+        return _code == consumptionCast._code;
+    }
+
+    public boolean isValid() {
+		if(_rg.isEmpty() || _codeProduct <= MINIMUM_CODE_PRODUCT || _quantity <= MINIMUM_QUANTITY) {
+			return false;
+		}
+		
+		return true;
+	}
 }
