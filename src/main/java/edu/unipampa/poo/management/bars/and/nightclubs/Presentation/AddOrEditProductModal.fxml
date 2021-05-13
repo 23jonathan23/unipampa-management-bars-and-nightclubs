@@ -12,6 +12,7 @@
       <Text layoutX="39.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
       <Text layoutX="39.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço de compra" />
       <Text layoutX="39.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço de venda" />
+      <TextField fx:id="code" layoutX="199.0" layoutY="30.0" prefHeight="25.0" prefWidth="80.0" />
       <TextField fx:id="description" layoutX="199.0" layoutY="78.0" prefHeight="25.0" prefWidth="320.0" />
       <TextField fx:id="quantity" layoutX="198.0" layoutY="123.0" prefHeight="25.0" prefWidth="163.0" />
       <TextField fx:id="buyPrice" layoutX="198.0" layoutY="168.0" prefHeight="25.0" prefWidth="163.0" />
