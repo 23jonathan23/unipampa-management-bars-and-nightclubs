@@ -8,11 +8,13 @@ public class Client implements Serializable {
     protected String _rg;
     protected String _name;
     protected double _credit;
+    protected String _category;
 
-    public Client(String rg, String name, double credit) {
+    public Client(String rg, String name, double credit, String category) {
         _rg = rg;
         _name = name;
         _credit = credit;
+        _category = category;
     }
 
     public double getTicket() {
@@ -31,6 +33,10 @@ public class Client implements Serializable {
         return _credit;
     }
 
+    public String getCategory() {
+        return _category;
+    }
+
     public void addCredit(double credit) throws IllegalArgumentException {
         if (credit <= MINIMUM_CREDIT) {
             throw new IllegalArgumentException("O valor informado deve ser maior do que 0");
@@ -42,7 +48,7 @@ public class Client implements Serializable {
     public void subCredit(double credit) throws IllegalArgumentException {
         if (credit <= MINIMUM_CREDIT) {
             throw new IllegalArgumentException("O valor informado deve ser maior do que 0");
-        } else if((_credit - credit) < MINIMUM_CREDIT) {
+        } else if ((_credit - credit) < MINIMUM_CREDIT) {
             throw new IllegalArgumentException("O débito a descontar é maior que o saldo atual!");
         }
 

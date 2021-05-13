@@ -13,9 +13,9 @@ public class ClientHandler {
         this._repository = repository;
     }
 
-    public void setClient(String rg, String name, double credit) throws IllegalArgumentException, Exception {
+    public void setClient(String rg, String name, double credit, String category) throws IllegalArgumentException, Exception {
         try {
-            var client = new Client(rg, name, credit);
+            var client = new Client(rg, name, credit, category);
             
             if (!client.isValid()) {
                 throw new IllegalArgumentException("Dados inválidos: os campos RG e Nome devem ser preenchidos");
@@ -57,9 +57,15 @@ public class ClientHandler {
         }
     }
 
-    public void addCreditToClient(double creditToBeAdded, String clientRg) throws Exception{
+    public void addCreditToClient(double creditToBeAdded, String clientRg) throws Exception {
         var client = getSingleClient(clientRg);
 
         client.addCredit(creditToBeAdded);
+    }
+
+    public void decreaseCreditFromClient(double creditToBeSubtracted, String clientRg) throws Exception {
+        var client = getSingleClient(clientRg);
+
+        client.subCredit(creditToBeSubtracted);
     }
 }

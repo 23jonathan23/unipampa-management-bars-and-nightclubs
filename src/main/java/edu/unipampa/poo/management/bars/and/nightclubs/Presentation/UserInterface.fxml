@@ -8,14 +8,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unipampa.poo.management.bars.and.nightclubs.Presentation.UserInterfaceController">
    <children>
-      <TabPane fx:id="tab" layoutY="50.0" prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tab" layoutY="53.0" prefHeight="605.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="clientsTab" onSelectionChanged="#toClient" text="Clientes" />
-          <Tab fx:id="productsTab" onSelectionChanged="#toProduct" text="Produtos" />
+          <Tab fx:id="clientsTab" onSelectionChanged="#onClientsTab" text="Clientes" />
+          <Tab fx:id="productsTab" onSelectionChanged="#onProductsTab" text="Produtos" />
         </tabs>
       </TabPane>
-      <TextField fx:id="search" layoutX="403.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" />
-      <Button fx:id="listAll" layoutX="598.0" layoutY="14.0" mnemonicParsing="false" text="Todos" />
-      <Button fx:id="add" layoutX="919.0" layoutY="14.0" mnemonicParsing="false" text="Adicionar" />
+      <TextField fx:id="search" layoutX="365.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" />
+      <Button fx:id="listAll" layoutX="570.0" layoutY="14.0" mnemonicParsing="false" text="Pesquisar" />
+      <Button fx:id="addClientOrProduct" layoutX="851.0" layoutY="14.0" mnemonicParsing="false" text="Adicionar novo cliente" AnchorPane.rightAnchor="14.0" />
    </children>
 </AnchorPane>

@@ -48,14 +48,14 @@ public class ConsumptionHandler {
         }
     }
 
-    public double payConsumptionsByClient(String rgClient) throws Exception{
+    public double payConsumptionsByClient(String rgClient) throws Exception {
         try {
             var client = _clientHandler.getSingleClient(rgClient);
             
             var consumptions = getConsumptionsByClient(client);
             
             var totalPayable = client.getTicket();
-            for(var consumption : consumptions) {
+            for (var consumption : consumptions) {
                 var product = _productHandler.getProduct(consumption.getCodeProduct());
                 
                 totalPayable += (consumption.getQuantity() * product.getPriceSale());
@@ -63,7 +63,7 @@ public class ConsumptionHandler {
 
             client.subCredit(totalPayable);
 
-            for(var consumption : consumptions) {
+            for (var consumption : consumptions) {
                 _repository.delete(consumption);
             }
 
@@ -83,29 +83,31 @@ public class ConsumptionHandler {
             var consumptions = getConsumptionsByClient(client);
 
             String clientType = " [PISTA]";
-            if(client instanceof ClientVip) {
+
+            if (client instanceof ClientVip) {
                 clientType = " [VIP]";
-            } else if(client instanceof ClientCabin) {
+            } else if (client instanceof ClientCabin) {
                 clientType = " [CAMAROTE]";
             }
 
             var report = "Cliente: " + client.getName() + clientType + "\nEntrada: " + client.getTicket();
             
             double totalPrice = 0;
-            for(var consumption : consumptions) {
+
+            for (var consumption : consumptions) {
                 var product = _productHandler.getProduct(consumption.getCodeProduct());
                 
                 double totalPriceByProduct = (consumption.getQuantity() * product.getPriceSale());
                 
                 report = "\n" + product.getDescription() + 
-                    " Quant: " + consumption.getQuantity() + 
+                    " Quantidade: " + consumption.getQuantity() + 
                     " Preço unidade: " + product.getPriceSale() +
                     " Preço total: " + totalPriceByProduct;
                 
-                totalPrice+=totalPriceByProduct;
+                totalPrice += totalPriceByProduct;
             }
             
-            if(!(client instanceof ClientVip)) {
+            if (!(client instanceof ClientVip)) {
                 report = "\nTotal: " + totalPrice;
             }
 
