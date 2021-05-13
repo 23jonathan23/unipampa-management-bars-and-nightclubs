@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.unipampa.poo.management.bars.and.nightclubs.Presentation.ClientModalController">
    <children>
       <Button fx:id="save" layoutX="416.0" layoutY="14.0" mnemonicParsing="false" onAction="#toSave" text="Salvar" />
@@ -17,5 +16,6 @@
       <Text fx:id="textCategory" layoutX="401.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="78.13671875" />
       <Text fx:id="textTicket" layoutX="514.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <TableView fx:id="tv" layoutX="1.0" layoutY="87.0" prefHeight="334.0" prefWidth="600.0" />
+      <Button fx:id="edit" layoutX="357.0" layoutY="14.0" mnemonicParsing="false" onAction="#toEdit" text="Editar" />
    </children>
 </AnchorPane>

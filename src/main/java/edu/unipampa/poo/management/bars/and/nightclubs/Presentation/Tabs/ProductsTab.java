@@ -46,6 +46,7 @@ public class ProductsTab {
                  
                  addCons.setProductHandler(productHandler);
                  addCons.setFields(product);
+                 addCons.setProduct(product);
     }
     
     private void addEditButton(TableColumn tableColumn) {

@@ -49,7 +49,7 @@ public class ClientsTab {
         stage.setScene(new Scene(root));
         stage.show();
         
-        clientModalController.setClientData(client, consumptionHandler);
+        clientModalController.setClientData(client, consumptionHandler, clientHandler);
     }
 
     private void addEditButton(TableColumn tableColumn, ConsumptionHandler consumptionHandler) {
