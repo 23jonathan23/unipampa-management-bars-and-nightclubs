@@ -9,9 +9,9 @@ import java.util.Properties;
 
 public class Configuration {
     private final String CONFIG_FILE = "config.properties";
-    private Path _dbClient;
-    private Path _dbProduct;
-    private Path _dbConsumption;
+    public Path _dbClient;
+    public Path _dbProduct;
+    public Path _dbConsumption;
     
     public Configuration Load() throws FileNotFoundException, IOException {
         Properties props = new Properties();
