@@ -19,15 +19,15 @@ public class ProductHandler {
         try {
             int CODE_ADDITION = 1;
             int lastCode = getLastCodeIncluded();
-            System.out.println("O ERRO ACONTECE AQUI MESMO EM44");
+
             Product product = new Product((lastCode + CODE_ADDITION), description, quantity, priceCost, priceSale);
-            System.out.println("O ERRO ACONTECE AQUI MESMO EM33");
+           
             if(!product.isValid()) {
                 throw new IllegalArgumentException("Valores informado para o produto não são válidos");
             }
-            System.out.println("O ERRO ACONTECE AQUI MESMO EM11");
+            
             _repository.insert(product);
-            System.out.println("O ERRO ACONTECE AQUI MESMO EM22");
+            
         } catch (IllegalArgumentException err) {
             throw err;
         } catch (Exception err) {
@@ -84,12 +84,12 @@ public class ProductHandler {
         var SUBTRACT_INDEX = 1;
     
         if (listProduct.size() == 0) {
-            return 1;
+            return 0;
         }
         int valor;
-        System.out.println("TENTATIVA 1");
+        
         valor = listProduct.get(listProduct.size() - SUBTRACT_INDEX).getCode();
-        System.out.println("TENTATIVA 2");
+        
         return valor;
     }
 }
