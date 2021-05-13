@@ -35,6 +35,8 @@ public class AddOrEditProductModalController implements Initializable{
     @FXML
     private Button save;
     @FXML
+    private TextField code;
+    @FXML
     private TextField description;
     @FXML
     private TextField quantity;
@@ -47,8 +49,12 @@ public class AddOrEditProductModalController implements Initializable{
     public void toSave(ActionEvent event) {
         
         try {
-            productHandler.setProduct(description.getText(), Integer.parseInt(quantity.getText()), 
-                    Double.parseDouble(buyPrice.getText()), Double.parseDouble(sellPrice.getText()));
+            if(!(code.getText().isEmpty())) {
+                productHandler.addItem(Integer.parseInt(code.getText()), Integer.parseInt(quantity.getText()));
+            } else {
+                 productHandler.setProduct(description.getText(), Integer.parseInt(quantity.getText()), 
+                Double.parseDouble(buyPrice.getText()), Double.parseDouble(sellPrice.getText()));
+            }
         } catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         } catch (Exception e) {
@@ -68,8 +74,13 @@ public class AddOrEditProductModalController implements Initializable{
     
     public void setFields(Product product) {
         description.setText(product.getDescription());
+        description.setEditable(false);
         quantity.setText(product.getQuantity() + "");
         buyPrice.setText(product.getPriceCost() + "");
+        buyPrice.setEditable(false);
         sellPrice.setText(product.getPriceSale() + "");
+        sellPrice.setEditable(false);
+        code.setText(product.getCode() + "");
+        code.setEditable(false);
     }
 }
