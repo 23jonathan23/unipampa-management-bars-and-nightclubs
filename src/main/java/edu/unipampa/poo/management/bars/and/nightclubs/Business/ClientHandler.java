@@ -5,11 +5,12 @@ import java.util.List;
 
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Client;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Interfaces.IDBRepository;
+import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Repository.DBRepository;
 
 public class ClientHandler {
-    private IDBRepository<Client> _repository;
+    private IDBRepository _repository;
     
-    public ClientHandler(IDBRepository<Client> repository) {
+    public ClientHandler(DBRepository repository) {
         this._repository = repository;
     }
 
@@ -41,9 +42,9 @@ public class ClientHandler {
     
     public Client getSingleClient(String clientRg) throws Exception, IllegalArgumentException {
         try {
-            var clientList = _repository.queryAll();
+            List<Client> clientList = _repository.queryAll();
             
-            for (var client : clientList) {
+            for (Client client : clientList) {
                 if (client.getRg().equals(clientRg)) {
                     return client;
                 }

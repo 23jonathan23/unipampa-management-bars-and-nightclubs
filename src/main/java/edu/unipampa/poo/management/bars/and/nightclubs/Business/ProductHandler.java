@@ -4,12 +4,13 @@ import java.lang.Exception;
 import java.util.List;
 
 import edu.unipampa.poo.management.bars.and.nightclubs.Domain.Product;
+import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Repository.DBRepository;
 import edu.unipampa.poo.management.bars.and.nightclubs.Infra.Interfaces.IDBRepository;
 
 public class ProductHandler {
-    private IDBRepository<Product> _repository;
+    private DBRepository _repository;
     
-    public ProductHandler(IDBRepository<Product> repository) {
+    public ProductHandler(DBRepository repository) {
         this._repository = repository;
     }
 
@@ -44,9 +45,9 @@ public class ProductHandler {
     
     public Product getProduct(int codeProduct) throws Exception, IllegalArgumentException {
         try {
-            var listProduct = _repository.queryAll();
+            List<Product> listProduct = _repository.queryAll();
             
-            for (var product : listProduct) {
+            for (Product product : listProduct) {
                 if (product.getCode() == codeProduct) {
                     return product;
                 }
