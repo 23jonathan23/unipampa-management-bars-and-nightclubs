@@ -17,5 +17,6 @@
       <TextField fx:id="buyPrice" layoutX="198.0" layoutY="168.0" prefHeight="25.0" prefWidth="163.0" />
       <TextField fx:id="sellPrice" layoutX="198.0" layoutY="217.0" prefHeight="25.0" prefWidth="163.0" />
       <Button fx:id="save" layoutX="493.0" layoutY="334.0" mnemonicParsing="false" onAction="#toSave" text="Salvar" />
+      <Button fx:id="delete" layoutX="426.0" layoutY="334.0" mnemonicParsing="false" onAction="#toDelete" text="Deletar" />
    </children>
 </AnchorPane>

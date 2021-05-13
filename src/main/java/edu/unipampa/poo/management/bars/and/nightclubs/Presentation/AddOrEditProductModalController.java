@@ -31,9 +31,12 @@ import javafx.scene.control.TextField;
 
 public class AddOrEditProductModalController implements Initializable{
     private ProductHandler productHandler;
+    Product product = null;
     
     @FXML
     private Button save;
+    @FXML
+    private Button delete;
     @FXML
     private TextField description;
     @FXML
@@ -42,6 +45,20 @@ public class AddOrEditProductModalController implements Initializable{
     private TextField buyPrice;
     @FXML
     private TextField sellPrice;
+    
+    @FXML
+    public void toDelete() {
+        if (product == null) {
+            return;
+        }
+        
+        try {
+            productHandler.delete(product);
+        } catch (Exception e) {}
+        
+        Stage stage = (Stage) save.getScene().getWindow();
+        stage.close();
+    }
     
     @FXML
     public void toSave(ActionEvent event) {
@@ -62,6 +79,11 @@ public class AddOrEditProductModalController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         
     }
+    
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
     public void setProductHandler(ProductHandler productHandler) {
         this.productHandler = productHandler;
     }
