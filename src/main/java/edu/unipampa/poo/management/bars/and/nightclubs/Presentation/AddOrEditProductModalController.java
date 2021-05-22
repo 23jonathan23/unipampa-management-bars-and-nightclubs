@@ -36,9 +36,9 @@ public class AddOrEditProductModalController implements Initializable{
     @FXML
     private Button save;
     @FXML
-    private TextField code;
-    @FXML
     private Button delete;
+    @FXML
+    private TextField code;
     @FXML
     private TextField description;
     @FXML
@@ -47,20 +47,6 @@ public class AddOrEditProductModalController implements Initializable{
     private TextField buyPrice;
     @FXML
     private TextField sellPrice;
-    
-    @FXML
-    public void toDelete() {
-        if (product == null) {
-            return;
-        }
-        
-        try {
-            productHandler.delete(product);
-        } catch (Exception e) {}
-        
-        Stage stage = (Stage) save.getScene().getWindow();
-        stage.close();
-    }
     
     @FXML
     public void toSave(ActionEvent event) {
@@ -80,16 +66,15 @@ public class AddOrEditProductModalController implements Initializable{
         Stage stage = (Stage) save.getScene().getWindow();
         stage.close();
     }
+    @FXML
+    public void toDelete(ActionEvent event) {
+        System.out.println("deu certo essa merda mano que porra foi essa");
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
     }
-    
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-    
     public void setProductHandler(ProductHandler productHandler) {
         this.productHandler = productHandler;
     }
@@ -104,5 +89,9 @@ public class AddOrEditProductModalController implements Initializable{
         sellPrice.setEditable(false);
         code.setText(product.getCode() + "");
         code.setEditable(false);
+    }
+    
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

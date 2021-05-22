@@ -189,7 +189,7 @@ public class UserInterfaceController implements Initializable{
         }
         clientHandler = new ClientHandler(new DBRepository<Client>(configuration._dbClient));
         productHandler = new ProductHandler(new DBRepository<Product>(configuration._dbProduct));
-        consumptionHandler = new ConsumptionHandler(new DBRepository<Consumption>(configuration._dbProduct), clientHandler, productHandler);
+        consumptionHandler = new ConsumptionHandler(new DBRepository<Consumption>(configuration._dbConsumption), clientHandler, productHandler);
     }
     
     @FXML

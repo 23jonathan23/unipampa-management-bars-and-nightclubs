@@ -30,13 +30,13 @@ public class ConsumptionHandler {
             var product = _productHandler.getProduct(codeProduct);
             var totalConsumption = (product.getPriceSale() * quantity);
             
-            if(totalConsumption > client.getTicket()) {
+            if(totalConsumption > client.getCredit() - client.getTicket()) {
                 throw new IllegalArgumentException("Seu saldo não é suficiente para consumir esse produto!");
             }
 
             var CODE_ADDITION = 1;
             var lastCode = getLastConsumptionCode();
-            var consumption = new Consumption((lastCode + CODE_ADDITION), rgClient, codeProduct, quantity);
+            Consumption consumption = new Consumption((lastCode + CODE_ADDITION), rgClient, codeProduct, quantity);
             
             if (!consumption.isValid()) {
                 throw new IllegalArgumentException("Dados inválidos: o RG, código do produto e quantidade não podem ser vazios");
